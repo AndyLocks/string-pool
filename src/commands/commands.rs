@@ -53,7 +53,7 @@ pub enum Commands {
         help_expected = true,
     )]
     List {
-        #[arg(short, long, help = "")]
+        #[arg(short, long, help = "String Pool directory")]
         dir: Option<PathBuf>,
     },
 
@@ -64,7 +64,7 @@ pub enum Commands {
     )]
     Build {
         #[arg()]
-        key: String,
+        argument: String,
 
         #[arg()]
         value: String,
