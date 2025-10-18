@@ -1,5 +1,6 @@
-[![release](https://img.shields.io/badge/v0.0.1-a6e3a1?style=for-the-badge&labelColor=1e1e2e&logoColor=a6e3a1&label=release)]()
-[![gpl](https://img.shields.io/badge/gpl-f9e2af?style=for-the-badge&label=license&labelColor=1e1e2e)](https://github.com/AndyLocks/LegoTehSet/blob/master/LICENSE)
+[![release](https://img.shields.io/badge/v0.0.1-a6e3a1?style=for-the-badge&labelColor=1e1e2e&logoColor=a6e3a1&label=release)](https://github.com/AndyLocks/string-pool/releases/tag/stringp-v0.0.1)
+[![gpl](https://img.shields.io/badge/gpl-f9e2af?style=for-the-badge&label=license&labelColor=1e1e2e)](https://github.com/AndyLocks/string-pool/blob/master/LICENSE)
+[![gpl](https://img.shields.io/badge/AUR-89b4fa?style=for-the-badge&labelColor=1e1e2e&logo=archlinux&logoColor=cdd6f4)](https://aur.archlinux.org/packages/stringp)
 
 A "key-value" utility for UNIX-like systems.
 
