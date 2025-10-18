@@ -1,4 +1,5 @@
 use crate::commands::add::add;
+use crate::commands::build::build;
 use crate::commands::commands::Commands;
 use crate::commands::get::get;
 use crate::commands::list::list;
@@ -24,8 +25,8 @@ pub struct Cli {
 
 fn main() {
     match Cli::parse().command {
-        Commands::Get { dir, key } => {
-            get(dir, key.as_str())
+        Commands::Get { dir, key, s } => {
+            get(dir, key.as_str(), s)
                 .inspect_err(|x| {
                     println!("IO Error: {x}");
                     exit(1);
@@ -62,5 +63,6 @@ fn main() {
                 })
                 .ok();
         }
+        Commands::Build { key, value } => build(key, value),
     }
 }

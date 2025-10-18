@@ -40,6 +40,69 @@ stringp g key
 
 If such a key does not exist, nothing will be displayed, and the program will terminate with code 1.
 
+```
+You can also add arguments to your files!
+
+For example: ${arg1}
+Or: ${arg2}
+```
+
+Arguments are passed via stdin in JSON format:
+
+```bash
+echo '{"arg1":"value1","arg2":"value2"}' | stringp get key
+```
+
+Then you will get the following output:
+
+```
+You can also add arguments to your files!
+
+For example: value1
+Or: value2
+```
+
+## Build
+
+The `build` command makes it easier to generate arguments for the `get` command:
+
+```bash
+stringp build arg value
+```
+
+This command will generate the following output:
+
+```
+{"arg":"value"}
+```
+
+This command can be used in pipelines to add more keys and values:
+
+```bash
+stringp b arg1 value1 | stringp b arg2 value2 
+```
+
+This command will generate the following output:
+
+```
+{"arg1":"value1","arg2":"value2"}
+```
+
+The following two examples are completely equivalent:
+
+```bash
+stringp b arg1 value1 | stringp b arg2 value2 | stringp g key
+```
+
+```bash
+echo '{"arg1":"value1","arg2":"value2"}' | stringp get key
+```
+
+If you need to leave a string like `${string}` untouched in a file, there are several ways to do this:
+
+1. Do not pass an argument with that name.
+2. Replace `${string}` with `$\{string}` and use the `-s` flag, which will replace `\{` with `{`.
+
 ## Remove value
 
 Delete file by key.
@@ -92,6 +155,54 @@ stringp get "$(stringp keys | wofi --dmenu)" | wl-copy
 ```
 
 This can be useful if you often write in markup languages such as LaTeX and frequently forget certain template elements. You can also bind this command to any key combination, depending on your shell.
+
+## Templates
+
+For example, we can add this template for LaTeX:
+
+```latex
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{${src}}
+\end{figure}
+```
+
+The following command will display the [fzf](https://github.com/junegunn/fzf) menu, where you can select the path to the image. This path will then be inserted into the template, and the template will be copied to the clipboard:
+
+```
+stringp b src $(fzf) | stringp g latex-picture | wl-copy
+```
+
+You can also make more complex templates, for example, here is one of mine for pandoc:
+
+```
+---
+title: "**${title}**"
+author: "${name}"
+date: "${date}"
+lang: "ru"
+fontsize: 12pt
+geometry: a4paper
+mainfont: "LiberationSans"
+header-includes: |
+  \usepackage{xcolor}
+  \usepackage{float}
+  \usepackage{hyperref}
+  \geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+  \hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    bookmarksopen=true,
+    bookmarksopenlevel=10
+  }
+  \usepackage{graphicx}
+  \usepackage{multicol}
+  \setlength{\columnsep}{1.5cm}
+output: pdf_document
+pdf-engine: xelatex
+---
+```
 
 ## Constants
 

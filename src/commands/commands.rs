@@ -15,6 +15,9 @@ pub enum Commands {
 
         #[arg(short, long, help = "String Pool directory")]
         dir: Option<PathBuf>,
+
+        #[arg(short, long, help = "Enable safe format mode", default_value = "false")]
+        s: bool,
     },
 
     #[command(
@@ -52,6 +55,19 @@ pub enum Commands {
     List {
         #[arg(short, long, help = "")]
         dir: Option<PathBuf>,
+    },
+
+    #[command(
+        about = "Arguments builder",
+        alias = "b",
+        help_expected = true,
+    )]
+    Build {
+        #[arg()]
+        key: String,
+
+        #[arg()]
+        value: String,
     },
 
     #[command(about = "Generate auto completion", help_expected = true)]
