@@ -96,3 +96,12 @@ This can be useful if you often write in markup languages such as LaTeX and freq
 ## Constants
 
 You can store links, file paths, or MAC addresses and use them in your scripts, and easily change the values if necessary.
+
+# Build
+
+```bash
+git clone https://github.com/AndyLocks/string-pool ; cd string-pool
+cargo build --release
+```
+
+The binary can be found in `./target/release` directory.
