@@ -11,3 +11,4 @@ path = "src/main.rs"
 clap = { version = "4.5.49", features = ["derive"] }
 clap_complete = "4.5.59"
 json = "0.12.4"
+which = "8.0.0"

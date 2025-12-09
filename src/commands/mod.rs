@@ -7,6 +7,7 @@ pub mod commands;
 pub mod get;
 pub mod list;
 pub mod remove;
+pub mod edit;
 
 fn unwrap_dir(dir: Option<PathBuf>) -> PathBuf {
     dir.or_else(|| env::var("STRING_POOL_DIR").ok().map(PathBuf::from))

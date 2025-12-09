@@ -1,14 +1,10 @@
-use std::path::PathBuf;
 use clap::Subcommand;
 use clap_complete::Shell;
+use std::path::PathBuf;
 
 #[derive(Subcommand)]
 pub enum Commands {
-    #[command(
-        about = "Outputs content by key",
-        alias = "g",
-        help_expected = true
-    )]
+    #[command(about = "Outputs content by key", alias = "g", help_expected = true)]
     Get {
         #[arg(help = "Filename in the String Pool directory")]
         key: String,
@@ -56,17 +52,22 @@ pub enum Commands {
         dir: Option<PathBuf>,
     },
 
-    #[command(
-        about = "Arguments builder",
-        alias = "k",
-        help_expected = true,
-    )]
+    #[command(about = "Arguments builder", alias = "k", help_expected = true)]
     Key {
         #[arg()]
         argument: String,
 
         #[arg()]
         value: String,
+    },
+
+    #[command(about = "Edit the value", alias = "e", help_expected = true)]
+    Edit {
+        #[arg(short, long, help = "String Pool directory")]
+        dir: Option<PathBuf>,
+
+        #[arg(help = "File name")]
+        key: String,
     },
 
     #[command(about = "Generate auto completion", help_expected = true)]
