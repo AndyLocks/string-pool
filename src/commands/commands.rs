@@ -46,7 +46,6 @@ pub enum Commands {
         dir: Option<PathBuf>,
     },
 
-
     #[command(
         about = "Outputs all available keys",
         aliases = ["l", "keys"],
@@ -59,10 +58,10 @@ pub enum Commands {
 
     #[command(
         about = "Arguments builder",
-        alias = "b",
+        alias = "k",
         help_expected = true,
     )]
-    Build {
+    Key {
         #[arg()]
         argument: String,
 

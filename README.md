@@ -62,12 +62,12 @@ For example: value1
 Or: value2
 ```
 
-## Build
+## Key
 
-The `build` command makes it easier to generate arguments for the `get` command:
+The `key` command makes it easier to generate arguments for the `get` command:
 
 ```bash
-stringp build arg value
+stringp key arg value
 ```
 
 This command will generate the following output:
@@ -79,7 +79,7 @@ This command will generate the following output:
 This command can be used in pipelines to add more keys and values:
 
 ```bash
-stringp b arg1 value1 | stringp b arg2 value2 
+stringp k arg1 value1 | stringp k arg2 value2 
 ```
 
 This command will generate the following output:
@@ -91,7 +91,7 @@ This command will generate the following output:
 The following two examples are completely equivalent:
 
 ```bash
-stringp b arg1 value1 | stringp b arg2 value2 | stringp g key
+stringp k arg1 value1 | stringp k arg2 value2 | stringp g key
 ```
 
 ```bash
@@ -170,7 +170,7 @@ For example, we can add this template for LaTeX:
 The following command will display the [fzf](https://github.com/junegunn/fzf) menu, where you can select the path to the image. This path will then be inserted into the template, and the template will be copied to the clipboard:
 
 ```
-stringp b src $(fzf) | stringp g latex-picture | wl-copy
+stringp k src $(fzf) | stringp g latex-picture | wl-copy
 ```
 
 You can also make more complex templates, for example, here is one of mine for pandoc:

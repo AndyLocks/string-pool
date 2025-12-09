@@ -63,6 +63,6 @@ fn main() {
                 })
                 .ok();
         }
-        Commands::Build { argument, value } => build(argument, value),
+        Commands::Key { argument, value } => build(argument, value),
     }
 }
