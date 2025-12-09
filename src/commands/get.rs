@@ -12,55 +12,45 @@ pub fn get(dir: Option<PathBuf>, key: &str, enable_safe_format: bool) -> std::io
         fs::create_dir_all(&dir)?;
     }
 
-    for entry in fs::read_dir(dir)? {
-        let path = entry?.path();
+    let path = dir.join(key);
 
-        if path.is_file() {
-            if let Some(name) = path.file_name() {
-                if name != key {
-                    continue;
+    if path.is_file() {
+        if io::stdin().is_terminal() {
+            std::io::copy(&mut File::open(path)?, &mut std::io::stdout().lock())?;
+
+            return Ok(());
+        }
+
+        let json = &mut String::new();
+
+        io::stdin().read_to_string(json)?;
+
+        match json::parse(json) {
+            Err(error) => println!("JSON Error: {error}"),
+            Ok(value) => {
+                let writer = &mut io::stdout().lock();
+
+                if let json::JsonValue::Object(object) = value {
+                    BufReader::new(File::open(path)?)
+                        .lines()
+                        .map(|l| l.unwrap())
+                        .for_each(|s| {
+                            let mut new_string = s.clone();
+
+                            for (k, v) in object.iter() {
+                                new_string = new_string
+                                    .replace(format!("${{{k}}}").as_str(), v.as_str().unwrap());
+
+                                if enable_safe_format {
+                                    new_string = new_string.replace("\\{", "{")
+                                }
+                            }
+
+                            new_string.push('\n');
+                            writer.write_all(new_string.as_bytes()).unwrap()
+                        });
                 }
-
-                if io::stdin().is_terminal() {
-                    std::io::copy(&mut File::open(path)?, &mut std::io::stdout().lock())?;
-
-                    return Ok(());
-                }
-
-                let json = &mut String::new();
-
-                io::stdin().read_to_string(json)?;
-
-                match json::parse(json) {
-                    Err(error) => println!("JSON Error: {error}"),
-                    Ok(value) => {
-                        let writer = &mut io::stdout().lock();
-
-                        if let json::JsonValue::Object(object) = value {
-                            BufReader::new(File::open(path)?)
-                                .lines()
-                                .map(|l| l.unwrap())
-                                .for_each(|s| {
-                                    let mut new_string = s.clone();
-
-                                    for (k, v) in object.iter() {
-                                        new_string = new_string.replace(
-                                            format!("${{{k}}}").as_str(),
-                                            v.as_str().unwrap(),
-                                        );
-
-                                        if enable_safe_format {
-                                            new_string = new_string.replace("\\{", "{")
-                                        }
-                                    }
-
-                                    new_string.push('\n');
-                                    writer.write_all(new_string.as_bytes()).unwrap()
-                                });
-                        }
-                        return Ok(());
-                    }
-                }
+                return Ok(());
             }
         }
     }
