@@ -1,20 +1,14 @@
 use std::env;
 use std::path::PathBuf;
-use crate::config::Config;
 
-pub mod get;
-pub mod commands;
 pub mod add;
+pub mod build;
+pub mod commands;
+pub mod get;
 pub mod list;
 pub mod remove;
-pub mod build;
 
 fn unwrap_dir(dir: Option<PathBuf>) -> PathBuf {
     dir.or_else(|| env::var("STRING_POOL_DIR").ok().map(PathBuf::from))
-        .unwrap_or(
-            confy::load::<Config>("string-pool", "config")
-                .unwrap_or_default()
-                .directory
-                .into(),
-        )
+        .unwrap_or(env::home_dir().expect("Error: home directory was not found. Try setting the environment variable `STRING_POOL_DIR`, or use the `--dir` flag").join(".local/share/string-pool"))
 }

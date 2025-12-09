@@ -9,7 +9,6 @@ use clap::Parser;
 use std::process::exit;
 
 mod commands;
-mod config;
 
 #[derive(Parser)]
 #[command(
