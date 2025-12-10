@@ -9,7 +9,9 @@ pub fn get(dir: Option<PathBuf>, key: &str, enable_safe_format: bool) -> std::io
     let dir = unwrap_dir(dir);
 
     if !dir.exists() {
-        fs::create_dir_all(&dir)?;
+
+        eprintln!("The directory {dir:?} does not exist.");
+        exit(1)
     }
 
     let path = dir.join(key);
