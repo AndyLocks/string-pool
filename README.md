@@ -1,20 +1,10 @@
-[![release](https://img.shields.io/badge/v0.0.3-a6e3a1?style=for-the-badge&labelColor=1e1e2e&logoColor=a6e3a1&label=release)](https://github.com/AndyLocks/string-pool/releases/tag/stringp-v0.0.3)
+[![release](https://img.shields.io/badge/v0.0.4-a6e3a1?style=for-the-badge&labelColor=1e1e2e&logoColor=a6e3a1&label=release)](https://github.com/AndyLocks/string-pool/releases/tag/stringp-v0.0.4)
 [![gpl](https://img.shields.io/badge/gpl-f9e2af?style=for-the-badge&label=license&labelColor=1e1e2e)](https://github.com/AndyLocks/string-pool/blob/master/LICENSE)
 [![gpl](https://img.shields.io/badge/AUR-89b4fa?style=for-the-badge&labelColor=1e1e2e&logo=archlinux&logoColor=cdd6f4)](https://aur.archlinux.org/packages/stringp)
 
 A "key-value" utility for UNIX-like systems.
 
 Allows to conveniently store values and retrieve them by key.
-
-# Configuration
-
-The configuration file `.config/string-pool/config.toml` is created automatically and looks like this by default:
-
-```toml
-directory = "/home/yourname/.local/share/string-pool"
-```
-
-The `.local/share/string-pool` directory contains files whose names are keys and whose contents are values. By changing the names or contents of these files, you will change the keys and values for `stringp`, so you don't need to use the `remove` and `add` commands — you can change the files directly. Using the `remove` and `add` commands only makes sense when you want to hide directory information from the calling side.
 
 # Usage
 
@@ -29,6 +19,12 @@ cat content.txt | stringp a 'key'
 
 In this example, a file named `key` will be created with the contents of the file `content.txt`.
 
+This command can also be used to create keys with empty values:
+
+```bash
+stringp add key
+```
+
 ## Get value
 
 Outputs the value by key:
@@ -39,6 +35,8 @@ stringp g key
 ```
 
 If such a key does not exist, nothing will be displayed, and the program will terminate with code 1.
+
+---
 
 ```
 You can also add arguments to your files!
@@ -112,7 +110,7 @@ stringp remove key
 stringp rm key
 ```
 
-## List
+## `list` command
 
 Outputs a list of existing keys:
 
@@ -124,16 +122,17 @@ stringp l
 
 # Directory rewriting
 
-The directory used is also influenced by environment variables and the `--dir` flag. By changing the directory, you can change the "database" and have the one you need for each case. Hierarchy:
+By changing the directory, you can change the "database" and have the one you need for each case. Hierarchy:
 
 1. `--dir`
-2. env (`STRING_POOL_DIR`)
-3. `.config/string-pool/config.toml`
+2. Environment variable `STRING_POOL_DIR`
+3. Use `~/.local/share/string-pool` directory by default, if exists
 
 ```bash
-stringp get key1 --dir .
-STRING_POOL_DIR="." stringp get key2
-stringp get key3
+stringp get key --dir .
+stringp get --dir . key
+STRING_POOL_DIR="." stringp get key
+stringp get key #~/.local/share/string-pool by default
 ```
 
 # Examples of use
