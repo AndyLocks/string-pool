@@ -1,5 +1,6 @@
-use std::fs;
+use std::{fs, io};
 use std::fs::OpenOptions;
+use std::io::IsTerminal;
 use std::path::PathBuf;
 use crate::commands::unwrap_dir;
 
@@ -15,7 +16,9 @@ pub fn add(dir: Option<PathBuf>, key: &str) -> std::io::Result<()> {
         .create_new(true)
         .open(dir.join(key))?;
 
-    std::io::copy(&mut std::io::stdin().lock(), &mut file)?;
+    if !io::stdin().is_terminal() {
+        std::io::copy(&mut std::io::stdin().lock(), &mut file)?;
+    }
 
     Ok(())
 }
