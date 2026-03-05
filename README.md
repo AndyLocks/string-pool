@@ -222,3 +222,36 @@ cargo build --release
 ```
 
 The binary can be found in `./target/release` directory.
+
+## Install (requires su)
+
+### Bin
+
+```bash
+install -Dm755 ./target/release/stringp /usr/bin/stringp
+```
+
+### Man page
+
+```bash
+install -Dm644 ./stringp.1.gz /usr/share/man/man1/stringp.1.gz
+```
+
+### Auto completion
+
+```bash
+mkdir -p "/usr/share/bash-completion/completions"
+mkdir -p "/usr/share/zsh/site-functions"
+mkdir -p "/usr/share/fish/vendor_completions.d"
+
+"/usr/bin/stringp" completions bash > "/usr/share/bash-completion/completions/stringp"
+"/usr/bin/stringp" completions zsh > "/usr/share/zsh/site-functions/_stringp"
+"/usr/bin/stringp" completions fish > "/usr/share/fish/vendor_completions.d/stringp.fish"
+```
+
+### License
+
+```bash
+install -Dm644 LICENSE "/usr/share/licenses/stringp/LICENSE"
+```
+
