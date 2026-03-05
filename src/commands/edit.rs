@@ -5,13 +5,7 @@ use std::path::PathBuf;
 use std::process::{Command, Stdio, exit};
 
 fn choose_editor() -> String {
-    if let Ok(ed) = env::var("SYSTEMD_EDITOR") {
-        return ed;
-    }
     if let Ok(ed) = env::var("EDITOR") {
-        return ed;
-    }
-    if let Ok(ed) = env::var("VISUAL") {
         return ed;
     }
 
