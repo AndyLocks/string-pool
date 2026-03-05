@@ -2,7 +2,7 @@ use json::JsonValue;
 use std::io::{IsTerminal, Read, stdin};
 use std::process::exit;
 
-pub fn build(k: String, v: String) {
+pub fn key(k: String, v: String) {
     if stdin().is_terminal() {
         println!("{}", to_json(k, v));
         return;

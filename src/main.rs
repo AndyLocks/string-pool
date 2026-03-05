@@ -1,5 +1,5 @@
 use crate::commands::add::add;
-use crate::commands::build::build;
+use crate::commands::build::key;
 use crate::commands::commands::Commands;
 use crate::commands::edit::edit;
 use crate::commands::get::get;
@@ -64,7 +64,7 @@ fn main() {
                 })
                 .ok();
         }
-        Commands::Key { argument, value } => build(argument, value),
+        Commands::Key { argument, value } => key(argument, value),
         Commands::Edit { dir, key } => {
             if let Err(message) = edit(dir, &key) {
                 eprintln!("{message}");
