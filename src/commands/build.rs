@@ -4,12 +4,7 @@ use std::process::exit;
 
 pub fn build(k: String, v: String) {
     if stdin().is_terminal() {
-        let mut data = JsonValue::new_object();
-
-        data[k] = v.into();
-
-        println!("{data}");
-
+        println!("{}", to_json(k, v));
         return;
     }
 
@@ -17,6 +12,11 @@ pub fn build(k: String, v: String) {
 
     if stdin().lock().read_to_string(&mut input).is_err() {
         exit(1)
+    }
+
+    if input.is_empty() {
+        println!("{}", to_json(k, v));
+        return;
     }
 
     match json::parse(input.as_str()) {
@@ -27,5 +27,13 @@ pub fn build(k: String, v: String) {
         Err(error) => {
             println!("JSON Error: {error}")
         }
+    }
+
+    fn to_json(k: String, v: String) -> String {
+        let mut data = JsonValue::new_object();
+
+        data[k] = v.into();
+
+        data.to_string()
     }
 }
