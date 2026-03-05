@@ -1,9 +1,9 @@
 use crate::commands::unwrap_dir;
 use std::fs::File;
+use std::io;
 use std::io::{BufRead, BufReader, IsTerminal, Read, Write};
 use std::path::PathBuf;
 use std::process::exit;
-use std::io;
 
 pub fn get(dir: Option<PathBuf>, key: &str, enable_safe_format: bool) -> std::io::Result<()> {
     let dir = unwrap_dir(dir);
@@ -26,8 +26,14 @@ pub fn get(dir: Option<PathBuf>, key: &str, enable_safe_format: bool) -> std::io
 
         io::stdin().read_to_string(json)?;
 
+        if json.is_empty() {
+            std::io::copy(&mut File::open(path)?, &mut std::io::stdout().lock())?;
+
+            return Ok(());
+        }
+
         match json::parse(json) {
-            Err(error) => println!("JSON Error: {error}"),
+            Err(error) => eprintln!("JSON Error: {error}"),
             Ok(value) => {
                 let writer = &mut io::stdout().lock();
 
