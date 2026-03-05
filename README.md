@@ -4,13 +4,13 @@
 
 A "key-value" utility for UNIX-like systems.
 
-Allows to conveniently store values and retrieve them by key.
+Allows to conveniently store values and retrieve them by key. `stringp` considers a directory to be a key-value storage, containing files with names, where a filename is a key, and a content of a file is a value.
 
 # Usage
 
 ## Add value
 
-Creates a new file and writes everything that was passed to `stdin` into it.
+Creates a new file and writes everything that was passed to `stdin` into it. If `stdin` is empty, the new file will also be empty.
 
 ```bash
 cat content.txt | stringp add 'key'
@@ -18,12 +18,6 @@ cat content.txt | stringp a 'key'
 ```
 
 In this example, a file named `key` will be created with the contents of the file `content.txt`.
-
-This command can also be used to create keys with empty values:
-
-```bash
-stringp add key
-```
 
 ## Get value
 
@@ -120,6 +114,15 @@ stringp keys
 stringp l
 ```
 
+## `edit` command
+
+Opens a file named by the key in storage directory with the editor from `$EDITOR`, if it exists. If not, it tries to open `editor`, `nano`, `vim` or `vi`.
+
+```bash
+stringp edit key
+EDITOR=nvim stringp edit key
+```
+
 # Directory rewriting
 
 By changing the directory, you can change the "database" and have the one you need for each case. Hierarchy:
@@ -206,6 +209,10 @@ pdf-engine: xelatex
 ## Constants
 
 You can store links, file paths, or MAC addresses and use them in your scripts, and easily change the values if necessary.
+
+```bash
+git clone "$(stringp get server-user)@$(stringp get server-ip):/path/to/gitrepo/$(gum input --placeholder='Repo name')"
+```
 
 # Build
 
