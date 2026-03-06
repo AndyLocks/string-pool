@@ -1,5 +1,5 @@
 use crate::commands::add::add;
-use crate::commands::build::key;
+use crate::commands::key::key;
 use crate::commands::commands::Commands;
 use crate::commands::edit::edit;
 use crate::commands::get::get;

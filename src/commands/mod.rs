@@ -2,7 +2,7 @@ use std::env;
 use std::path::PathBuf;
 
 pub mod add;
-pub mod build;
+pub mod key;
 pub mod commands;
 pub mod get;
 pub mod list;

@@ -25,7 +25,7 @@ pub fn key(k: String, v: String) {
             println!("{value}")
         }
         Err(error) => {
-            println!("JSON Error: {error}")
+            eprintln!("JSON Error: {error}")
         }
     }
 
