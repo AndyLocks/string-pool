@@ -9,9 +9,7 @@ fn choose_editor() -> String {
         return ed;
     }
 
-    let fallback = ["editor", "nano", "vim", "vi"];
-
-    for &cmd in &fallback {
+    for cmd in ["editor", "nano", "vim", "vi"] {
         if which::which(cmd).is_ok() {
             return cmd.to_string();
         }
