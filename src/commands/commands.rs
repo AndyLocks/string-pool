@@ -22,7 +22,7 @@ pub enum Commands {
         help_expected = true
     )]
     Add {
-        #[arg(help = "File name")]
+        #[arg(help = "Filename in the String Pool directory")]
         key: String,
 
         #[arg(short, long, help = "String Pool directory")]
@@ -35,7 +35,7 @@ pub enum Commands {
         help_expected = true
     )]
     Remove {
-        #[arg(help = "File name")]
+        #[arg(help = "Filename in the String Pool directory")]
         key: String,
 
         #[arg(short, long, help = "String Pool directory")]
@@ -66,7 +66,7 @@ pub enum Commands {
         #[arg(short, long, help = "String Pool directory")]
         dir: Option<PathBuf>,
 
-        #[arg(help = "File name")]
+        #[arg(help = "Filename in the String Pool directory")]
         key: String,
     },
 
