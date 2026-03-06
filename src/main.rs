@@ -29,7 +29,7 @@ fn main() {
         Commands::Get { dir, key, s } => {
             get(dir, key.as_str(), s)
                 .inspect_err(|x| {
-                    println!("IO Error: {x}");
+                    eprintln!("IO Error: {x}");
                     exit(1);
                 })
                 .ok();
@@ -37,7 +37,7 @@ fn main() {
         Commands::Add { dir, key } => {
             add(dir, key.as_str())
                 .inspect_err(|x| {
-                    println!("IO Error: {x}");
+                    eprintln!("IO Error: {x}");
                     exit(1);
                 })
                 .ok();
@@ -51,7 +51,7 @@ fn main() {
         Commands::List { dir } => {
             list(dir)
                 .inspect_err(|x| {
-                    println!("IO Error: {x}");
+                    eprintln!("IO Error: {x}");
                     exit(1);
                 })
                 .ok();
@@ -59,7 +59,7 @@ fn main() {
         Commands::Remove { dir, key } => {
             remove(dir, key.as_str())
                 .inspect_err(|x| {
-                    println!("IO Error: {x}");
+                    eprintln!("IO Error: {x}");
                     exit(1);
                 })
                 .ok();
