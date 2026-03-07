@@ -9,7 +9,7 @@ pub fn get(dir: Option<PathBuf>, key: &str, enable_safe_format: bool) -> std::io
     let dir = unwrap_dir(dir);
 
     if !dir.exists() {
-        eprintln!("The directory {dir:?} does not exist.");
+        eprintln!("The directory [{}] does not exist.", dir.display());
         exit(1)
     }
 
