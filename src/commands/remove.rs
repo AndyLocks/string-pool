@@ -1,6 +1,6 @@
+use crate::commands::unwrap_dir;
 use std::fs;
 use std::path::PathBuf;
-use crate::commands::unwrap_dir;
 
 pub fn remove(dir: Option<PathBuf>, key: &str) -> std::io::Result<()> {
     let dir = unwrap_dir(dir);

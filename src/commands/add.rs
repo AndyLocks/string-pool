@@ -1,8 +1,8 @@
-use std::{fs, io};
+use crate::commands::unwrap_dir;
 use std::fs::OpenOptions;
 use std::io::IsTerminal;
 use std::path::PathBuf;
-use crate::commands::unwrap_dir;
+use std::{fs, io};
 
 pub fn add(dir: Option<PathBuf>, key: &str) -> std::io::Result<()> {
     let dir = unwrap_dir(dir);
