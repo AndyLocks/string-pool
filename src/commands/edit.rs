@@ -38,7 +38,7 @@ pub fn edit(dir: Option<PathBuf>, key: &str) -> Result<(), String> {
         .expect("Error: Failed to run the editor");
 
     if !status.success() {
-        return Err("Error: Editor exited with error".into());
+        return Err("Editor exited with an error".into());
     }
 
     Ok(())
