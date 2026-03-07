@@ -1,6 +1,6 @@
 [package]
 name = "string-pool"
-version = "0.0.8"
+version = "0.0.9"
 edition = "2024"
 description = "A \"key-value\" utility for UNIX-like systems. Allows to conveniently store values and retrieve them by key."
 license = "GPL-3-or-later"
