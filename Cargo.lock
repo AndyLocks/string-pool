@@ -198,7 +198,7 @@ dependencies = [
 
 [[package]]
 name = "string-pool"
-version = "0.0.9"
+version = "1.0.0"
 dependencies = [
  "clap",
  "clap_complete",
