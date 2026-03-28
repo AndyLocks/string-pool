@@ -70,6 +70,9 @@ pub enum Commands {
         key: String,
     },
 
+    #[command(about = "Print current String Pool directory", help_expected = true)]
+    Dir {},
+
     #[command(about = "Generate auto completion", help_expected = true)]
     Completions {
         #[arg(help = "Your shell name (zsh, bash, fish, elvish, powershell)")]

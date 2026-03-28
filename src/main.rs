@@ -5,6 +5,7 @@ use crate::commands::get::get;
 use crate::commands::key::key;
 use crate::commands::list::list;
 use crate::commands::remove::remove;
+use crate::commands::dir::dir;
 use clap::CommandFactory;
 use clap::Parser;
 use std::process::exit;
@@ -64,6 +65,7 @@ fn main() {
                 })
                 .ok();
         }
+        Commands::Dir {} => dir(),
         Commands::Key { argument, value } => key(argument, value),
         Commands::Edit { dir, key } => {
             if let Err(message) = edit(dir, &key) {
