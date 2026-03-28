@@ -138,6 +138,14 @@ STRING_POOL_DIR="." stringp get key
 stringp get key #~/.local/share/string-pool by default
 ```
 
+## `dir` command
+
+Prints current String Pool directory.
+
+```bash
+stringp dir
+```
+
 # Examples of use
 
 ## [fzf](https://github.com/junegunn/fzf)
